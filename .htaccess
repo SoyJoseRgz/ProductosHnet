@@ -1,0 +1,30 @@
+# Habilitar el motor de reescritura
+RewriteEngine On
+
+# Forzar HTTPS (descomenta estas líneas si tu servidor soporta HTTPS)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Si el archivo o directorio solicitado no existe, redirigir a index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]
+
+# Proteger archivos sensibles
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Proteger directorios sensibles
+<IfModule mod_rewrite.c>
+    RewriteRule ^config/ - [F,L]
+    RewriteRule ^app/ - [F,L]
+    RewriteRule ^sessions/ - [F,L]
+</IfModule>
+
+# Prevenir listado de directorios
+Options -Indexes
+
+# Establecer el índice predeterminado
+DirectoryIndex index.php
