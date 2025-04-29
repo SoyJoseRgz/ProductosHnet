@@ -86,6 +86,33 @@ if (empty($uri) || $uri === 'index.php') {
 } elseif ($uri === 'debug') {
     // Página de depuración
     require_once BASE_PATH . '/debug.php';
+} elseif ($uri === 'syscom' || $uri === 'syscom/') {
+    // Redirigir a categorías de SYSCOM
+    header('Location: ' . APP_URL . '/syscom/categories');
+    exit;
+} elseif ($uri === 'syscom/search') {
+    // Búsqueda de productos SYSCOM
+    $controller = new app\Controllers\SyscomController();
+    $controller->search();
+} elseif ($uri === 'syscom/product') {
+    // Detalles de producto SYSCOM
+    $controller = new app\Controllers\SyscomController();
+    $controller->product();
+} elseif ($uri === 'syscom/categories') {
+    // Categorías de SYSCOM
+    $controller = new app\Controllers\SyscomController();
+    $controller->categories();
+} elseif ($uri === 'syscom/category') {
+    // Productos por categoría SYSCOM
+    $controller = new app\Controllers\SyscomController();
+    $controller->category();
+} elseif ($uri === 'syscom/test') {
+    // Página de prueba de API SYSCOM
+    $viewService = new app\Services\ViewService();
+    $viewService->render('syscom/test_api.php', [
+        'title' => 'Prueba de API SYSCOM',
+        'extraCss' => ['syscom']
+    ]);
 } else {
     // Página no encontrada
     $controller = new app\Controllers\ErrorController();

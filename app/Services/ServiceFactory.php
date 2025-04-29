@@ -13,6 +13,10 @@ use app\Interfaces\UserServiceInterface;
 use app\Interfaces\ViewServiceInterface;
 use app\Interfaces\SessionServiceInterface;
 use app\Interfaces\ValidatorServiceInterface;
+use app\Interfaces\SyscomApiServiceInterface;
+use app\Interfaces\SyscomRepositoryInterface;
+use app\Interfaces\LoggerServiceInterface;
+use app\Repositories\SyscomRepository;
 
 class ServiceFactory
 {
@@ -91,5 +95,47 @@ class ServiceFactory
         }
 
         return self::$instances[ValidatorServiceInterface::class];
+    }
+
+    /**
+     * Obtiene una instancia del servicio de API de SYSCOM
+     *
+     * @return SyscomApiServiceInterface Instancia del servicio
+     */
+    public static function getSyscomApiService(): SyscomApiServiceInterface
+    {
+        if (!isset(self::$instances[SyscomApiServiceInterface::class])) {
+            self::$instances[SyscomApiServiceInterface::class] = new SyscomApiService();
+        }
+
+        return self::$instances[SyscomApiServiceInterface::class];
+    }
+
+    /**
+     * Obtiene una instancia del repositorio de SYSCOM
+     *
+     * @return SyscomRepositoryInterface Instancia del repositorio
+     */
+    public static function getSyscomRepository(): SyscomRepositoryInterface
+    {
+        if (!isset(self::$instances[SyscomRepositoryInterface::class])) {
+            self::$instances[SyscomRepositoryInterface::class] = new SyscomRepository();
+        }
+
+        return self::$instances[SyscomRepositoryInterface::class];
+    }
+
+    /**
+     * Obtiene una instancia del servicio de logging
+     *
+     * @return LoggerServiceInterface Instancia del servicio
+     */
+    public static function getLoggerService(): LoggerServiceInterface
+    {
+        if (!isset(self::$instances[LoggerServiceInterface::class])) {
+            self::$instances[LoggerServiceInterface::class] = new LoggerService();
+        }
+
+        return self::$instances[LoggerServiceInterface::class];
     }
 }

@@ -27,5 +27,9 @@ ini_set('session.use_only_cookies', 1);
 ini_set('session.cookie_secure', ENVIRONMENT === 'production' ? 1 : 0);
 ini_set('session.save_path', BASE_PATH . '/sessions');
 
+// Configuración de la API de SYSCOM
+define('SYSCOM_CLIENT_ID', '0fVKpz3hW5QhlsgU7ePWm2IBwXFDVW28');
+define('SYSCOM_CLIENT_SECRET', '0NiaUnCMs7baV6HGacVKXEsZEyCO728j1AU4cA9C');
+
 // Cargar usuarios
 $GLOBALS['users'] = require_once BASE_PATH . '/config/users.php';
