@@ -11,47 +11,19 @@ namespace app\Interfaces;
 interface SyscomRepositoryInterface
 {
     /**
-     * Obtiene un listado de productos
-     *
-     * @param int $page Número de página
-     * @param int $limit Límite de resultados por página
-     * @param array $filters Filtros adicionales
-     * @return array|null Listado de productos o null en caso de error
-     */
-    public function getProducts(int $page = 1, int $limit = 10, array $filters = []): ?array;
-    
-    /**
-     * Busca productos por término de búsqueda
-     *
-     * @param string $query Término de búsqueda
-     * @param int $page Número de página
-     * @param int $limit Límite de resultados por página
-     * @return array|null Resultados de la búsqueda o null en caso de error
-     */
-    public function searchProducts(string $query, int $page = 1, int $limit = 10): ?array;
-    
-    /**
-     * Obtiene información detallada de un producto
-     *
-     * @param int $productId ID del producto
-     * @return array|null Información del producto o null en caso de error
-     */
-    public function getProductDetails(int $productId): ?array;
-    
-    /**
      * Obtiene las categorías disponibles
      *
      * @return array|null Listado de categorías o null en caso de error
      */
     public function getCategories(): ?array;
-    
+
     /**
-     * Obtiene productos por categoría
+     * Obtiene los productos de una categoría específica
      *
      * @param int $categoryId ID de la categoría
-     * @param int $page Número de página
-     * @param int $limit Límite de resultados por página
+     * @param int $page Número de página para la paginación
+     * @param string $order Orden de los resultados (default: "relevancia")
      * @return array|null Listado de productos o null en caso de error
      */
-    public function getProductsByCategory(int $categoryId, int $page = 1, int $limit = 10): ?array;
+    public function getProductsByCategory(int $categoryId, int $page = 1, string $order = "relevancia"): ?array;
 }

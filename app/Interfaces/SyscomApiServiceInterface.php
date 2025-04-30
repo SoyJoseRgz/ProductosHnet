@@ -12,13 +12,13 @@ interface SyscomApiServiceInterface
 {
     /**
      * Obtiene un token de acceso válido para la API de SYSCOM
-     * 
+     *
      * Si el token actual ha expirado, obtiene uno nuevo automáticamente
      *
      * @return string Token de acceso
      */
     public function getAccessToken(): string;
-    
+
     /**
      * Realiza una petición a la API de SYSCOM
      *
@@ -29,18 +29,4 @@ interface SyscomApiServiceInterface
      * @return array|null Respuesta de la API o null en caso de error
      */
     public function request(string $method, string $endpoint, array $params = [], array $headers = []): ?array;
-    
-    /**
-     * Verifica si el token actual es válido
-     *
-     * @return bool True si el token es válido, false en caso contrario
-     */
-    public function isTokenValid(): bool;
-    
-    /**
-     * Refresca el token de acceso
-     *
-     * @return bool True si el token se refrescó correctamente, false en caso contrario
-     */
-    public function refreshToken(): bool;
 }

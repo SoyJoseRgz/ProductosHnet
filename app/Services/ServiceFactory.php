@@ -9,7 +9,6 @@
 namespace app\Services;
 
 use app\Interfaces\AuthServiceInterface;
-use app\Interfaces\UserServiceInterface;
 use app\Interfaces\ViewServiceInterface;
 use app\Interfaces\SessionServiceInterface;
 use app\Interfaces\ValidatorServiceInterface;
@@ -41,19 +40,7 @@ class ServiceFactory
         return self::$instances[AuthServiceInterface::class];
     }
 
-    /**
-     * Obtiene una instancia del servicio de usuario
-     *
-     * @return UserServiceInterface Instancia del servicio
-     */
-    public static function getUserService(): UserServiceInterface
-    {
-        if (!isset(self::$instances[UserServiceInterface::class])) {
-            self::$instances[UserServiceInterface::class] = new UserService();
-        }
 
-        return self::$instances[UserServiceInterface::class];
-    }
 
     /**
      * Obtiene una instancia del servicio de vistas

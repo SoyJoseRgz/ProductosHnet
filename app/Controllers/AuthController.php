@@ -12,6 +12,7 @@ use app\Interfaces\AuthServiceInterface;
 use app\Interfaces\ViewServiceInterface;
 use app\Interfaces\SessionServiceInterface;
 use app\Interfaces\ValidatorServiceInterface;
+use app\Interfaces\LoggerServiceInterface;
 use app\Services\ServiceFactory;
 use app\Traits\ErrorHandlerTrait;
 use app\Utils\Redirector;
@@ -49,6 +50,13 @@ class AuthController
     private $validatorService;
 
     /**
+     * Servicio de logging
+     *
+     * @var LoggerServiceInterface
+     */
+    private $logger;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -58,6 +66,7 @@ class AuthController
         $this->viewService = ServiceFactory::getViewService();
         $this->sessionService = ServiceFactory::getSessionService();
         $this->validatorService = ServiceFactory::getValidatorService();
+        $this->logger = ServiceFactory::getLoggerService();
     }
 
     /**
@@ -105,9 +114,7 @@ class AuthController
                     ]);
 
                     // Registrar el inicio de sesión
-                    if (function_exists('logError')) {
-                        logError("Usuario $email inició sesión");
-                    }
+                    $this->logger->info("Usuario $email inició sesión");
 
                     // Redirigir a la página principal
                     Redirector::home();
@@ -145,8 +152,8 @@ class AuthController
         $this->sessionService->end();
 
         // Registrar el cierre de sesión
-        if (function_exists('logError') && isset($userData['email'])) {
-            logError("Usuario {$userData['email']} cerró sesión");
+        if (isset($userData['email'])) {
+            $this->logger->info("Usuario {$userData['email']} cerró sesión");
         }
 
         // Redirigir al login

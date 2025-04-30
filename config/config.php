@@ -5,10 +5,10 @@
 
 // Configuración de la aplicación
 define('APP_NAME', 'ProductosHnet');
-define('APP_URL', 'https://hnet.com.mx/ProductosHnet');
+define('APP_URL', 'http://localhost/ProductosHnet');
 
 // Configuración de entorno
-define('ENVIRONMENT', 'production');
+define('ENVIRONMENT', 'development');
 
 // Configuración de errores
 if (ENVIRONMENT === 'development') {

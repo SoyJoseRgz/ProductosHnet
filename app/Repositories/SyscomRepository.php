@@ -46,93 +46,6 @@ class SyscomRepository implements SyscomRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getProducts(int $page = 1, int $limit = 10, array $filters = []): ?array
-    {
-        $cacheKey = 'products_' . $page . '_' . $limit . '_' . md5(json_encode($filters));
-
-        // Verificar si existe en caché
-        if ($cachedData = $this->getFromCache($cacheKey)) {
-            return $cachedData;
-        }
-
-        // Preparar parámetros
-        $params = [
-            'pagina' => $page,
-            'limite' => $limit
-        ];
-
-        // Agregar filtros adicionales
-        if (!empty($filters)) {
-            $params = array_merge($params, $filters);
-        }
-
-        // Realizar la petición
-        $response = $this->apiService->request('GET', 'productos', $params);
-
-        // Guardar en caché si la respuesta es válida
-        if ($response !== null) {
-            $this->saveToCache($cacheKey, $response);
-        }
-
-        return $response;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function searchProducts(string $query, int $page = 1, int $limit = 10): ?array
-    {
-        $cacheKey = 'search_' . md5($query) . '_' . $page . '_' . $limit;
-
-        // Verificar si existe en caché
-        if ($cachedData = $this->getFromCache($cacheKey)) {
-            return $cachedData;
-        }
-
-        // Preparar parámetros
-        $params = [
-            'q' => $query,
-            'pagina' => $page,
-            'limite' => $limit
-        ];
-
-        // Realizar la petición
-        $response = $this->apiService->request('GET', 'productos/busqueda', $params);
-
-        // Guardar en caché si la respuesta es válida
-        if ($response !== null) {
-            $this->saveToCache($cacheKey, $response);
-        }
-
-        return $response;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getProductDetails(int $productId): ?array
-    {
-        $cacheKey = 'product_' . $productId;
-
-        // Verificar si existe en caché
-        if ($cachedData = $this->getFromCache($cacheKey)) {
-            return $cachedData;
-        }
-
-        // Realizar la petición
-        $response = $this->apiService->request('GET', 'productos/' . $productId);
-
-        // Guardar en caché si la respuesta es válida
-        if ($response !== null) {
-            $this->saveToCache($cacheKey, $response);
-        }
-
-        return $response;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getCategories(): ?array
     {
         $cacheKey = 'categories';
@@ -158,32 +71,36 @@ class SyscomRepository implements SyscomRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getProductsByCategory(int $categoryId, int $page = 1, int $limit = 10): ?array
+    public function getProductsByCategory(int $categoryId, int $page = 1, string $order = "relevancia"): ?array
     {
-        $cacheKey = 'category_' . $categoryId . '_' . $page . '_' . $limit;
+        // Crear una clave de caché única basada en los parámetros
+        $cacheKey = "products_category_{$categoryId}_page_{$page}_order_{$order}";
 
         // Verificar si existe en caché
         if ($cachedData = $this->getFromCache($cacheKey)) {
             return $cachedData;
         }
 
-        // Preparar parámetros
+        // Preparar los parámetros para la petición
         $params = [
-            'categoria_id' => $categoryId, // Usar categoria_id según la estructura de la API
+            'categoria' => $categoryId,
             'pagina' => $page,
-            'limite' => $limit
+            'orden' => $order
         ];
 
-        // Realizar la petición
+        // Realizar la petición al endpoint de productos
         $response = $this->apiService->request('GET', 'productos', $params);
 
         // Guardar en caché si la respuesta es válida
         if ($response !== null) {
+            // Caché más corto para productos (5 minutos)
             $this->saveToCache($cacheKey, $response);
         }
 
         return $response;
     }
+
+
 
     /**
      * Obtiene datos de la caché
@@ -237,10 +154,7 @@ class SyscomRepository implements SyscomRepositoryInterface
      */
     private function logCacheHit(string $key): void
     {
-        // Implementación simple de logging
-        if (defined('ENVIRONMENT') && ENVIRONMENT === 'development') {
-            error_log("Cache HIT: $key");
-        }
+        // Método simplificado para reducir logs innecesarios
     }
 
     /**
@@ -251,9 +165,10 @@ class SyscomRepository implements SyscomRepositoryInterface
      */
     private function logCacheMiss(string $key): void
     {
-        // Implementación simple de logging
-        if (defined('ENVIRONMENT') && ENVIRONMENT === 'development') {
-            error_log("Cache MISS: $key");
-        }
+        // Método simplificado para reducir logs innecesarios
     }
+
+
+
+
 }

@@ -9,6 +9,7 @@
 namespace app\Controllers;
 
 use app\Interfaces\ViewServiceInterface;
+use app\Interfaces\LoggerServiceInterface;
 use app\Services\ServiceFactory;
 use app\Traits\ErrorHandlerTrait;
 use app\Utils\Redirector;
@@ -25,12 +26,20 @@ class ErrorController
     private $viewService;
 
     /**
+     * Servicio de logging
+     *
+     * @var LoggerServiceInterface
+     */
+    private $logger;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        // Inicializar el servicio de vistas usando la fábrica
+        // Inicializar los servicios usando la fábrica
         $this->viewService = ServiceFactory::getViewService();
+        $this->logger = ServiceFactory::getLoggerService();
     }
 
     /**
@@ -44,9 +53,7 @@ class ErrorController
         http_response_code(404);
 
         // Registrar el error
-        if (function_exists('logError')) {
-            logError("Página no encontrada: " . ($_SERVER['REQUEST_URI'] ?? 'Desconocida'));
-        }
+        $this->logger->warning("Página no encontrada: " . ($_SERVER['REQUEST_URI'] ?? 'Desconocida'));
 
         // Datos para la vista
         $viewData = [
@@ -71,9 +78,7 @@ class ErrorController
         http_response_code($statusCode);
 
         // Registrar el error
-        if (function_exists('logError')) {
-            logError("Error ($statusCode): $message");
-        }
+        $this->logger->error("Error ($statusCode): $message");
 
         // Datos para la vista
         $viewData = [

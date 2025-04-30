@@ -63,102 +63,6 @@ class SyscomController
     }
 
     /**
-     * Página principal de productos SYSCOM
-     *
-     * @return void
-     */
-    public function index(): void
-    {
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
-
-        // Obtener productos
-        $products = $this->syscomRepository->getProducts($page, $limit);
-
-        // Renderizar vista
-        $this->viewService->render('syscom/index.php', [
-            'title' => 'Productos SYSCOM',
-            'products' => $products,
-            'page' => $page,
-            'limit' => $limit,
-            'extraCss' => ['syscom'],
-            'extraJs' => ['syscom']
-        ]);
-    }
-
-    /**
-     * Búsqueda de productos
-     *
-     * @return void
-     */
-    public function search(): void
-    {
-        $query = isset($_GET['q']) ? trim($_GET['q']) : '';
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 12;
-
-        $results = null;
-        $categories = null;
-
-        // Obtener categorías para el filtro
-        $categories = $this->syscomRepository->getCategories();
-
-        if (!empty($query)) {
-            // Registrar búsqueda
-            $this->logger->info('Búsqueda de productos', ['query' => $query]);
-
-            // Realizar búsqueda
-            $results = $this->syscomRepository->searchProducts($query, $page, $limit);
-        }
-
-        // Renderizar vista
-        $this->viewService->render('syscom/search.php', [
-            'title' => 'Búsqueda de Productos',
-            'query' => $query,
-            'results' => $results,
-            'categories' => $categories,
-            'page' => $page,
-            'limit' => $limit,
-            'extraCss' => ['syscom'],
-            'extraJs' => ['syscom']
-        ]);
-    }
-
-    /**
-     * Detalles de un producto
-     *
-     * @return void
-     */
-    public function product(): void
-    {
-        $productId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-
-        if ($productId <= 0) {
-            $this->handleError('ID de producto inválido');
-            return;
-        }
-
-        // Obtener detalles del producto
-        $product = $this->syscomRepository->getProductDetails($productId);
-
-        if ($product === null) {
-            $this->handleError('Producto no encontrado');
-            return;
-        }
-
-        // Registrar visualización
-        $this->logger->info('Visualización de producto', ['product_id' => $productId]);
-
-        // Renderizar vista
-        $this->viewService->render('syscom/product.php', [
-            'title' => 'Detalles del Producto',
-            'product' => $product,
-            'extraCss' => ['syscom'],
-            'extraJs' => ['syscom']
-        ]);
-    }
-
-    /**
      * Categorías de productos
      *
      * @return void
@@ -203,31 +107,83 @@ class SyscomController
     }
 
     /**
-     * Productos por categoría
+     * Productos de una categoría específica
      *
+     * @param int $categoryId ID de la categoría
      * @return void
      */
-    public function category(): void
+    public function products(int $categoryId): void
     {
-        $categoryId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        // Obtener el número de página de la URL
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
 
-        if ($categoryId <= 0) {
-            $this->handleError('ID de categoría inválido');
-            return;
+        // Validar que la página sea un número positivo
+        if ($page < 1) {
+            $page = 1;
         }
 
-        // Obtener productos por categoría
-        $products = $this->syscomRepository->getProductsByCategory($categoryId, $page, $limit);
+        // Obtener el orden de los resultados
+        $order = isset($_GET['order']) ? $_GET['order'] : 'relevancia';
+
+        // Validar que el orden sea válido
+        $validOrders = ['relevancia', 'precio:asc', 'precio:desc', 'modelo:asc', 'modelo:desc', 'marca:asc', 'marca:desc', 'topseller'];
+        if (!in_array($order, $validOrders)) {
+            $order = 'relevancia';
+        }
+
+        // Registrar intento de obtener productos
+        $this->logger->info('Intentando obtener productos de la categoría', [
+            'categoria_id' => $categoryId,
+            'pagina' => $page,
+            'orden' => $order
+        ]);
+
+        // Obtener productos de la categoría
+        $products = $this->syscomRepository->getProductsByCategory($categoryId, $page, $order);
+
+        // Verificar si se obtuvieron productos
+        if ($products === null) {
+            $this->logger->error('Error al obtener productos de la categoría', [
+                'categoria_id' => $categoryId
+            ]);
+        } else {
+            $this->logger->info('Productos obtenidos correctamente', [
+                'categoria_id' => $categoryId,
+                'cantidad' => isset($products['productos']) && is_array($products['productos']) ? count($products['productos']) : 0,
+                'estructura' => json_encode(array_keys($products))
+            ]);
+
+            // Registrar información detallada del primer producto para depuración
+            if (isset($products['productos']) && is_array($products['productos']) && !empty($products['productos'])) {
+                $firstProduct = $products['productos'][0];
+                $this->logger->info('Estructura del primer producto', [
+                    'keys' => json_encode(array_keys($firstProduct)),
+                    'precios_keys' => isset($firstProduct['precios']) ? json_encode(array_keys($firstProduct['precios'])) : 'No hay precios'
+                ]);
+            }
+        }
+
+        // Obtener información de la categoría para mostrar el nombre
+        $categories = $this->syscomRepository->getCategories();
+        $categoryName = 'Categoría #' . $categoryId;
+
+        if (is_array($categories)) {
+            foreach ($categories as $category) {
+                if ($category['id'] == $categoryId) {
+                    $categoryName = $category['nombre'];
+                    break;
+                }
+            }
+        }
 
         // Renderizar vista
-        $this->viewService->render('syscom/category.php', [
-            'title' => 'Productos por Categoría',
+        $this->viewService->render('syscom/products.php', [
+            'title' => 'Productos de ' . $categoryName,
             'products' => $products,
             'categoryId' => $categoryId,
-            'page' => $page,
-            'limit' => $limit,
+            'categoryName' => $categoryName,
+            'currentPage' => $page,
+            'currentOrder' => $order,
             'extraCss' => ['syscom'],
             'extraJs' => ['syscom']
         ]);

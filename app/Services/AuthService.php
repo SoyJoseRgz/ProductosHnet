@@ -75,35 +75,5 @@ class AuthService implements AuthServiceInterface
         return isset($this->userObjects[$email]) ? $this->userObjects[$email]->toArray() : null;
     }
 
-    /**
-     * Inicia sesión para un usuario
-     *
-     * @param string $email Correo electrónico del usuario
-     * @return bool True si se inició sesión correctamente, false en caso contrario
-     */
-    public function login(string $email): bool
-    {
-        if (!isset($this->userObjects[$email])) {
-            return false;
-        }
 
-        $user = $this->userObjects[$email];
-        $_SESSION['user'] = [
-            'email' => $email,
-            'name' => $user->getName()
-        ];
-
-        return true;
-    }
-
-    /**
-     * Cierra la sesión del usuario actual
-     *
-     * @return void
-     */
-    public function logout(): void
-    {
-        session_unset();
-        session_destroy();
-    }
 }

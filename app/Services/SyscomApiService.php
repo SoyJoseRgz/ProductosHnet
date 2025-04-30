@@ -81,9 +81,11 @@ class SyscomApiService implements SyscomApiServiceInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Verifica si el token actual es válido
+     *
+     * @return bool True si el token es válido, false en caso contrario
      */
-    public function isTokenValid(): bool
+    private function isTokenValid(): bool
     {
         // Si no hay token o no hay tiempo de expiración, no es válido
         if (empty($this->accessToken) || empty($this->tokenExpiration)) {
@@ -95,9 +97,11 @@ class SyscomApiService implements SyscomApiServiceInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Refresca el token de acceso
+     *
+     * @return bool True si el token se refrescó correctamente, false en caso contrario
      */
-    public function refreshToken(): bool
+    private function refreshToken(): bool
     {
         $this->logger->info('Refrescando token de SYSCOM API');
 
@@ -227,13 +231,29 @@ class SyscomApiService implements SyscomApiServiceInterface
 
         // Si hay un error en la petición
         if ($httpCode < 200 || $httpCode >= 300 || $response === false) {
-            $this->logger->error('Error en petición a SYSCOM API', [
+            $errorData = [
                 'method' => $method,
                 'endpoint' => $endpoint,
                 'http_code' => $httpCode,
                 'curl_error' => $curlError,
                 'duration_ms' => $duration
-            ]);
+            ];
+
+            // Para errores 422 (Unprocessable Entity), intentar decodificar la respuesta para obtener más detalles
+            if ($httpCode === 422 && !empty($response)) {
+                $errorResponse = json_decode($response, true);
+                if ($errorResponse !== null) {
+                    $errorData['error_details'] = $errorResponse;
+                } else {
+                    $errorData['error_response'] = $response;
+                }
+
+                // Registrar información adicional para depuración
+                $errorData['url'] = $url;
+                $errorData['params'] = $params;
+            }
+
+            $this->logger->error('Error en petición a SYSCOM API', $errorData);
             return null;
         }
 

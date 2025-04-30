@@ -1,0 +1,164 @@
+[2025-04-30 19:09:10] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:09:10] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:09:10] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:09:10] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:09:13] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":3136.91,"response_size":82760}
+[2025-04-30 19:09:13] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:09:13] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:09:13] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:09:13] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":313.78,"response_size":705}
+[2025-04-30 19:10:26] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:10:26] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:10:26] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:10:26] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:10:29] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":2713.75,"response_size":82760}
+[2025-04-30 19:10:29] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:10:29] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:10:29] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:10:29] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":392.59,"response_size":705}
+[2025-04-30 19:14:40] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:14:40] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:14:40] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:14:40] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:14:42] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":2511.91,"response_size":82760}
+[2025-04-30 19:14:42] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:14:42] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:14:42] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:14:42] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":240.39,"response_size":705}
+[2025-04-30 19:19:06] [INFO] Intentando obtener categorías de SYSCOM
+[2025-04-30 19:19:06] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:19:06] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:19:07] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:19:07] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":667.96,"response_size":705}
+[2025-04-30 19:19:07] [INFO] Categorías obtenidas correctamente {"cantidad":12}
+[2025-04-30 19:20:24] [INFO] Intentando obtener categorías de SYSCOM
+[2025-04-30 19:20:24] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:20:24] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:20:24] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:20:25] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":550.05,"response_size":705}
+[2025-04-30 19:20:25] [INFO] Categorías obtenidas correctamente {"cantidad":12}
+[2025-04-30 19:20:26] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:20:26] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:20:26] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:20:26] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:20:29] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":2811.18,"response_size":82760}
+[2025-04-30 19:20:29] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:20:29] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:20:29] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:20:29] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":311.22,"response_size":705}
+[2025-04-30 19:22:55] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:22:55] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:22:55] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:22:55] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:22:57] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":2650.34,"response_size":82760}
+[2025-04-30 19:22:57] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:22:57] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:22:57] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:22:58] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":290.36,"response_size":705}
+[2025-04-30 19:25:41] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:25:41] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:25:41] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:25:41] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:25:43] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":2458.35,"response_size":82760}
+[2025-04-30 19:25:43] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:25:43] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:25:43] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:25:44] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":322.64,"response_size":705}
+[2025-04-30 19:28:53] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:28:53] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:28:53] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:28:54] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:29:21] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":28962.81,"response_size":82760}
+[2025-04-30 19:29:21] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:29:21] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:29:21] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:29:22] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":954.97,"response_size":705}
+[2025-04-30 19:29:28] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:29:28] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:29:28] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:29:28] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:29:43] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":15580.08,"response_size":82760}
+[2025-04-30 19:29:43] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:29:43] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:29:43] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:29:44] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":625.88,"response_size":705}
+[2025-04-30 19:29:50] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:29:50] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:29:50] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:29:52] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31535999}
+[2025-04-30 19:30:26] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":36190.2,"response_size":82760}
+[2025-04-30 19:30:26] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:30:26] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:30:26] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:30:27] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":748.17,"response_size":705}
+[2025-04-30 19:30:27] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:30:27] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:30:27] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:30:27] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:30:44] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":16822.14,"response_size":82760}
+[2025-04-30 19:30:44] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:30:44] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:30:44] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:30:46] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":2175.06,"response_size":705}
+[2025-04-30 19:30:46] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:30:46] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:30:46] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:30:48] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:31:17] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":31302.94,"response_size":82760}
+[2025-04-30 19:31:17] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:31:17] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:31:17] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:31:18] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":288.52,"response_size":705}
+[2025-04-30 19:31:18] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:31:18] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:31:18] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:31:18] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:31:42] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":24521.06,"response_size":82760}
+[2025-04-30 19:31:42] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:31:42] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:31:42] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:31:45] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":3179.05,"response_size":705}
+[2025-04-30 19:32:02] [WARNING] Ruta no encontrada: s
+[2025-04-30 19:32:02] [WARNING] Página no encontrada: /ProductosHnet/s
+[2025-04-30 19:32:06] [INFO] Intentando obtener categorías de SYSCOM
+[2025-04-30 19:32:06] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:32:06] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:32:06] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:32:07] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":1719.83,"response_size":705}
+[2025-04-30 19:32:07] [INFO] Categorías obtenidas correctamente {"cantidad":12}
+[2025-04-30 19:32:09] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:32:09] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:32:09] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:32:09] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:32:29] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":20769.26,"response_size":82760}
+[2025-04-30 19:32:29] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:32:29] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:32:29] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:32:30] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":520.65,"response_size":705}
+[2025-04-30 19:34:50] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:34:50] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:34:50] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:34:50] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:34:53] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":2704.2,"response_size":82760}
+[2025-04-30 19:34:53] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:34:53] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:34:53] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:34:53] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":322.29,"response_size":705}
+[2025-04-30 19:35:58] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:35:58] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:35:58] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:35:59] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:36:01] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":3194.33,"response_size":82760}
+[2025-04-30 19:36:01] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:36:01] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:36:01] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:36:02] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":318.9,"response_size":705}
+[2025-04-30 19:36:27] [INFO] Intentando obtener productos de la categoría {"categoria_id":22,"pagina":1,"orden":"relevancia"}
+[2025-04-30 19:36:27] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"productos","params":{"categoria":22,"pagina":1,"orden":"relevancia"}}
+[2025-04-30 19:36:27] [INFO] Refrescando token de SYSCOM API
+[2025-04-30 19:36:27] [INFO] Token de SYSCOM API obtenido correctamente {"expires_in":31536000}
+[2025-04-30 19:36:30] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"productos","http_code":200,"duration_ms":3490.85,"response_size":82760}
+[2025-04-30 19:36:30] [INFO] Productos obtenidos correctamente {"categoria_id":22,"cantidad":60,"estructura":"[\"cantidad\",\"pagina\",\"paginas\",\"productos\",\"todo\"]"}
+[2025-04-30 19:36:30] [INFO] Estructura del primer producto {"keys":"[\"producto_id\",\"modelo\",\"total_existencia\",\"titulo\",\"marca\",\"garantia\",\"sat_key\",\"img_portada\",\"link_privado\",\"categorias\",\"pvol\",\"marca_logo\",\"link\",\"imagen_360\",\"iconos\",\"peso\",\"unidad_de_medida\",\"alto\",\"largo\",\"ancho\",\"precios\",\"existencia\"]","precios_keys":"[\"precio_1\",\"precio_especial\",\"precio_descuento\",\"volumen\",\"precio_lista\"]"}
+[2025-04-30 19:36:30] [DEBUG] Iniciando petición a SYSCOM API {"method":"GET","endpoint":"categorias","params":[]}
+[2025-04-30 19:36:31] [INFO] Petición a SYSCOM API completada {"method":"GET","endpoint":"categorias","http_code":200,"duration_ms":297.62,"response_size":705}

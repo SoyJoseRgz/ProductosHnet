@@ -13,23 +13,23 @@ define('BASE_PATH', __DIR__);
 // Cargar configuración
 require_once BASE_PATH . '/config/config.php';
 
+// Autoload de clases
+spl_autoload_register(function ($class) {
+    $file = BASE_PATH . '/' . str_replace('\\', '/', $class) . '.php';
+    if (file_exists($file)) {
+        require_once $file;
+    }
+});
+
 // Iniciar sesión
 session_start();
 
-// Función para registrar errores
-function logError($message, $file = null, $line = null) {
-    $errorLog = BASE_PATH . '/error_log.txt';
-    $timestamp = date('Y-m-d H:i:s');
-    $logMessage = "[$timestamp] $message";
-    if ($file && $line) {
-        $logMessage .= " in $file on line $line";
-    }
-    file_put_contents($errorLog, $logMessage . PHP_EOL, FILE_APPEND);
-}
+// Inicializar el servicio de logging
+$logger = app\Services\ServiceFactory::getLoggerService();
 
 // Manejador de errores personalizado
-set_error_handler(function($errno, $errstr, $errfile, $errline) {
-    logError($errstr, $errfile, $errline);
+set_error_handler(function($errno, $errstr, $errfile, $errline) use ($logger) {
+    $logger->error($errstr, ['file' => $errfile, 'line' => $errline]);
     // No suprimir el manejador de errores interno de PHP
     return false;
 });
@@ -48,18 +48,13 @@ if ($baseFolder !== '') {
 // Eliminar ProductosHnet/ explícitamente si todavía está presente
 $uri = str_replace('ProductosHnet/', '', $uri);
 
-// Autoload de clases
-spl_autoload_register(function ($class) {
-    $file = BASE_PATH . '/' . str_replace('\\', '/', $class) . '.php';
-    if (file_exists($file)) {
-        require_once $file;
-    }
-});
-
 // Enrutamiento básico
 if (empty($uri) || $uri === 'index.php') {
+    // Crear el servicio de sesión para verificar la autenticación
+    $sessionService = app\Services\ServiceFactory::getSessionService();
+
     // Si el usuario está autenticado, mostrar la página principal
-    if (isset($_SESSION['user'])) {
+    if ($sessionService->isActive()) {
         $controller = new app\Controllers\HomeController();
         $controller->index();
     } else {
@@ -69,55 +64,39 @@ if (empty($uri) || $uri === 'index.php') {
     }
 } elseif ($uri === 'login') {
     try {
-        logError("Intentando cargar el controlador de autenticación para login");
+        $logger->info("Intentando cargar el controlador de autenticación para login");
         $controller = new app\Controllers\AuthController();
-        logError("Controlador de autenticación creado, llamando al método login");
+        $logger->info("Controlador de autenticación creado, llamando al método login");
         $controller->login();
-        logError("Método login ejecutado");
+        $logger->info("Método login ejecutado");
     } catch (Exception $e) {
-        logError("Error en login: " . $e->getMessage(), $e->getFile(), $e->getLine());
+        $logger->error("Error en login: " . $e->getMessage(), ['file' => $e->getFile(), 'line' => $e->getLine()]);
         echo "<h1>Error en la página de login</h1>";
-        echo "<p>Se ha producido un error. Por favor, revisa el archivo error_log.txt para más detalles.</p>";
+        echo "<p>Se ha producido un error. Por favor, contacte al administrador.</p>";
         echo "<pre>" . $e->getMessage() . "</pre>";
     }
 } elseif ($uri === 'logout') {
     $controller = new app\Controllers\AuthController();
     $controller->logout();
-} elseif ($uri === 'debug') {
-    // Página de depuración
-    require_once BASE_PATH . '/debug.php';
+
 } elseif ($uri === 'syscom' || $uri === 'syscom/') {
     // Redirigir a categorías de SYSCOM
     header('Location: ' . APP_URL . '/syscom/categories');
     exit;
-} elseif ($uri === 'syscom/search') {
-    // Búsqueda de productos SYSCOM
-    $controller = new app\Controllers\SyscomController();
-    $controller->search();
-} elseif ($uri === 'syscom/product') {
-    // Detalles de producto SYSCOM
-    $controller = new app\Controllers\SyscomController();
-    $controller->product();
 } elseif ($uri === 'syscom/categories') {
     // Categorías de SYSCOM
     $controller = new app\Controllers\SyscomController();
     $controller->categories();
-} elseif ($uri === 'syscom/category') {
-    // Productos por categoría SYSCOM
+} elseif (preg_match('~^syscom/productos/(\d+)$~', $uri, $matches)) {
+    // Productos de una categoría específica
+    $categoryId = (int)$matches[1];
     $controller = new app\Controllers\SyscomController();
-    $controller->category();
-} elseif ($uri === 'syscom/test') {
-    // Página de prueba de API SYSCOM
-    $viewService = new app\Services\ViewService();
-    $viewService->render('syscom/test_api.php', [
-        'title' => 'Prueba de API SYSCOM',
-        'extraCss' => ['syscom']
-    ]);
+    $controller->products($categoryId);
 } else {
+    // Registrar información sobre la ruta no encontrada
+    $logger->warning("Ruta no encontrada: $uri");
+
     // Página no encontrada
     $controller = new app\Controllers\ErrorController();
     $controller->notFound();
-
-    // Registrar información sobre la ruta no encontrada
-    logError("Ruta no encontrada: $uri");
 }
