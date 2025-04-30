@@ -188,4 +188,48 @@ class SyscomController
             'extraJs' => ['syscom']
         ]);
     }
+
+    /**
+     * Muestra la información del tipo de cambio
+     *
+     * @return void
+     */
+    public function exchangeRate(): void
+    {
+        // Registrar intento de obtener tipo de cambio
+        $this->logger->info('Intentando obtener tipo de cambio de SYSCOM');
+
+        // Obtener tipo de cambio
+        $exchangeRate = $this->syscomRepository->getExchangeRate();
+
+        // Verificar si se obtuvo el tipo de cambio
+        if ($exchangeRate === null) {
+            $this->logger->error('Error al obtener tipo de cambio de SYSCOM');
+
+            // Intentar obtener directamente desde el servicio de API para diagnóstico
+            $apiService = ServiceFactory::getSyscomApiService();
+            $directExchangeRate = $apiService->request('GET', 'tipocambio');
+
+            $this->logger->info('Intento directo de obtener tipo de cambio', [
+                'resultado' => $directExchangeRate !== null ? 'éxito' : 'fallo'
+            ]);
+
+            // Si el intento directo tuvo éxito, usar esos resultados
+            if ($directExchangeRate !== null) {
+                $exchangeRate = $directExchangeRate;
+            }
+        } else {
+            $this->logger->info('Tipo de cambio obtenido correctamente', [
+                'datos' => json_encode($exchangeRate)
+            ]);
+        }
+
+        // Renderizar vista
+        $this->viewService->render('syscom/exchange_rate.php', [
+            'title' => 'Tipo de Cambio',
+            'exchangeRate' => $exchangeRate,
+            'extraCss' => ['syscom'],
+            'extraJs' => ['syscom']
+        ]);
+    }
 }

@@ -26,4 +26,11 @@ interface SyscomRepositoryInterface
      * @return array|null Listado de productos o null en caso de error
      */
     public function getProductsByCategory(int $categoryId, int $page = 1, string $order = "relevancia"): ?array;
+
+    /**
+     * Obtiene el tipo de cambio actual
+     *
+     * @return array|null Información del tipo de cambio o null en caso de error
+     */
+    public function getExchangeRate(): ?array;
 }

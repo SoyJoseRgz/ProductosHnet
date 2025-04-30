@@ -100,6 +100,30 @@ class SyscomRepository implements SyscomRepositoryInterface
         return $response;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getExchangeRate(): ?array
+    {
+        $cacheKey = 'exchange_rate';
+
+        // Verificar si existe en caché
+        if ($cachedData = $this->getFromCache($cacheKey)) {
+            return $cachedData;
+        }
+
+        // Realizar la petición al endpoint de tipo de cambio
+        $response = $this->apiService->request('GET', 'tipocambio');
+
+        // Guardar en caché si la respuesta es válida
+        if ($response !== null) {
+            // Caché corto para tipo de cambio (5 minutos)
+            $this->saveToCache($cacheKey, $response, 300);
+        }
+
+        return $response;
+    }
+
 
 
     /**

@@ -74,6 +74,12 @@
                                     <span>Categorías</span>
                                 </a>
                             </li>
+                            <li class="submenu-item <?= strpos($_SERVER['REQUEST_URI'], '/syscom/exchange-rate') !== false ? 'active' : '' ?>">
+                                <a href="<?= APP_URL ?>/syscom/exchange-rate" class="submenu-link">
+                                    <i class="sidebar-icon exchange-icon"></i>
+                                    <span>Tipo de Cambio</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

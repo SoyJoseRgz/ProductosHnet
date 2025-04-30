@@ -92,6 +92,10 @@ if (empty($uri) || $uri === 'index.php') {
     $categoryId = (int)$matches[1];
     $controller = new app\Controllers\SyscomController();
     $controller->products($categoryId);
+} elseif ($uri === 'syscom/exchange-rate') {
+    // Tipo de cambio de SYSCOM
+    $controller = new app\Controllers\SyscomController();
+    $controller->exchangeRate();
 } else {
     // Registrar información sobre la ruta no encontrada
     $logger->warning("Ruta no encontrada: $uri");

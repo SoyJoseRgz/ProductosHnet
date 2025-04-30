@@ -175,6 +175,10 @@ header h1 {
     content: "📂";
 }
 
+.exchange-icon::before {
+    content: "💱";
+}
+
 .sidebar-item.active > .sidebar-link {
     background-color: #e9ecef;
     font-weight: bold;

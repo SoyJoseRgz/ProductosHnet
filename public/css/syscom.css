@@ -340,6 +340,145 @@
     }
 }
 
+/* Estilos para el tipo de cambio */
+.exchange-rate-container {
+    margin-top: 20px;
+}
+
+.exchange-rate-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.exchange-rate-header {
+    padding: 20px;
+    background-color: #2c3e50;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+.exchange-rate-header h2 {
+    margin: 0;
+    font-size: 22px;
+    color: white;
+    font-weight: 500;
+}
+
+.exchange-rate-body {
+    padding: 25px;
+}
+
+.exchange-rate-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* Estilo para el valor actual destacado */
+.exchange-rate-current {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.exchange-rate-current-value {
+    font-size: 42px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currency-symbol {
+    font-size: 30px;
+    margin-right: 5px;
+    color: #2c3e50;
+}
+
+.rate-value {
+    color: #2c3e50;
+}
+
+.currency-code {
+    font-size: 24px;
+    margin-left: 5px;
+    color: #6c757d;
+}
+
+.exchange-rate-current-label {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+/* Estilos para la tabla de tipos de cambio */
+.exchange-rate-details {
+    margin-top: 20px;
+}
+
+.exchange-rate-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.exchange-rate-row {
+    display: flex;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.exchange-rate-row:last-child {
+    border-bottom: none;
+}
+
+.exchange-rate-row.header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #495057;
+}
+
+.exchange-rate-cell {
+    flex: 1;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.period-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.rate-amount {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Estilos para el pie de página */
+.exchange-rate-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 14px;
+    padding-top: 15px;
+    border-top: 1px solid #e9ecef;
+}
+
+.exchange-rate-note p {
+    margin: 0;
+}
+
 @media (max-width: 576px) {
     .categories-grid, .products-grid {
         grid-template-columns: 1fr;
@@ -347,5 +486,55 @@
 
     .product-image {
         height: 150px;
+    }
+
+    /* Estilos responsivos para el tipo de cambio */
+    .exchange-rate-card {
+        border-radius: 8px;
+        max-width: 100%;
+    }
+
+    .exchange-rate-header {
+        padding: 15px;
+    }
+
+    .exchange-rate-header h2 {
+        font-size: 18px;
+    }
+
+    .exchange-rate-body {
+        padding: 15px;
+    }
+
+    .exchange-rate-current {
+        padding: 15px 10px;
+    }
+
+    .exchange-rate-current-value {
+        font-size: 32px;
+    }
+
+    .currency-symbol {
+        font-size: 24px;
+    }
+
+    .currency-code {
+        font-size: 18px;
+    }
+
+    .exchange-rate-current-label {
+        font-size: 14px;
+    }
+
+    .exchange-rate-cell {
+        padding: 10px;
+    }
+
+    .period-label, .rate-amount {
+        font-size: 14px;
+    }
+
+    .exchange-rate-footer {
+        font-size: 12px;
     }
 }
