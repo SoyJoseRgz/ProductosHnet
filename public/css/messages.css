@@ -1,0 +1,145 @@
+/**
+ * Estilos para mensajes de la aplicación
+ * Contiene estilos para mensajes de error, éxito e información
+ */
+
+/* Estilos base para mensajes */
+.message {
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.message::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Mensaje de error */
+.error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.error-message::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23721c24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+}
+
+/* Mensaje de éxito */
+.success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.success-message::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23155724'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
+}
+
+/* Mensaje informativo */
+.info-message {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+}
+
+.info-message::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230c5460'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E");
+}
+
+/* Mensaje de advertencia */
+.warning-message {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+}
+
+.warning-message::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23856404'%3E%3Cpath d='M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'/%3E%3C/svg%3E");
+}
+
+/* Variantes de tamaño */
+.message-sm {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.message-lg {
+    padding: 15px 20px;
+    font-size: 16px;
+}
+
+/* Variante con borde redondeado */
+.message-rounded {
+    border-radius: 30px;
+}
+
+/* Variante con sombra */
+.message-shadow {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Variante con icono más grande */
+.message-icon-lg::before {
+    width: 24px;
+    height: 24px;
+}
+
+/* Variante sin icono */
+.message-no-icon::before {
+    display: none;
+}
+
+/* Variante con borde más grueso */
+.message-border-thick {
+    border-width: 2px;
+}
+
+/* Variante con fondo más oscuro */
+.message-dark.error-message {
+    background-color: #e4c1c4;
+}
+
+.message-dark.success-message {
+    background-color: #b8d9c1;
+}
+
+.message-dark.info-message {
+    background-color: #b8d8df;
+}
+
+.message-dark.warning-message {
+    background-color: #f5e7b8;
+}
+
+/* Variante con texto centrado */
+.message-centered {
+    text-align: center;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .message {
+        padding: 10px;
+        font-size: 13px;
+    }
+    
+    .message::before {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+}

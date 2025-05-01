@@ -9,38 +9,18 @@
 namespace app\Controllers;
 
 use app\Interfaces\AuthServiceInterface;
-use app\Interfaces\ViewServiceInterface;
-use app\Interfaces\SessionServiceInterface;
 use app\Interfaces\ValidatorServiceInterface;
-use app\Interfaces\LoggerServiceInterface;
 use app\Services\ServiceFactory;
-use app\Traits\ErrorHandlerTrait;
 use app\Utils\Redirector;
 
-class AuthController
+class AuthController extends BaseController
 {
-    use ErrorHandlerTrait;
-
     /**
      * Servicio de autenticación
      *
      * @var AuthServiceInterface
      */
     private $authService;
-
-    /**
-     * Servicio de vistas
-     *
-     * @var ViewServiceInterface
-     */
-    private $viewService;
-
-    /**
-     * Servicio de sesión
-     *
-     * @var SessionServiceInterface
-     */
-    private $sessionService;
 
     /**
      * Servicio de validación
@@ -50,23 +30,23 @@ class AuthController
     private $validatorService;
 
     /**
-     * Servicio de logging
+     * Indica si se requiere autenticación para este controlador
      *
-     * @var LoggerServiceInterface
+     * @var bool
      */
-    private $logger;
+    protected $requiresAuth = false;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        // Inicializar los servicios usando la fábrica
+        // Llamar al constructor padre para inicializar servicios comunes
+        parent::__construct();
+
+        // Inicializar servicios específicos
         $this->authService = ServiceFactory::getAuthService();
-        $this->viewService = ServiceFactory::getViewService();
-        $this->sessionService = ServiceFactory::getSessionService();
         $this->validatorService = ServiceFactory::getValidatorService();
-        $this->logger = ServiceFactory::getLoggerService();
     }
 
     /**
@@ -135,7 +115,7 @@ class AuthController
         ];
 
         // Renderizar la vista de login
-        $this->viewService->render('auth/login.php', $viewData);
+        $this->render('auth/login.php', $viewData);
     }
 
     /**

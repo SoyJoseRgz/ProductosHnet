@@ -5,7 +5,7 @@
 
 // Configuración de la aplicación
 define('APP_NAME', 'ProductosHnet');
-define('APP_URL', 'http://localhost/ProductosHnet');
+define('APP_URL', 'http://localhost:81/ProductosHnet');
 
 // Configuración de entorno
 define('ENVIRONMENT', 'development');
@@ -30,6 +30,11 @@ ini_set('session.save_path', BASE_PATH . '/sessions');
 // Configuración de la API de SYSCOM
 define('SYSCOM_CLIENT_ID', '0fVKpz3hW5QhlsgU7ePWm2IBwXFDVW28');
 define('SYSCOM_CLIENT_SECRET', '0NiaUnCMs7baV6HGacVKXEsZEyCO728j1AU4cA9C');
+
+// Configuración de la API de WooCommerce
+define('WOOCOMMERCE_STORE_URL', 'http://mi-tienda.local/');
+define('WOOCOMMERCE_CONSUMER_KEY', 'ck_9843139c9f9b7224b4af786289477a9c546cd7c5');
+define('WOOCOMMERCE_CONSUMER_SECRET', 'cs_86743d39590d38fc5449904f1a594d764fe391f6');
 
 // Cargar usuarios
 $GLOBALS['users'] = require_once BASE_PATH . '/config/users.php';

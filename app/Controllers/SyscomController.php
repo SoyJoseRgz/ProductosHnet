@@ -9,16 +9,10 @@
 namespace app\Controllers;
 
 use app\Interfaces\SyscomRepositoryInterface;
-use app\Interfaces\ViewServiceInterface;
-use app\Interfaces\SessionServiceInterface;
-use app\Interfaces\LoggerServiceInterface;
 use app\Services\ServiceFactory;
-use app\Traits\ErrorHandlerTrait;
 
-class SyscomController
+class SyscomController extends BaseController
 {
-    use ErrorHandlerTrait;
-
     /**
      * Repositorio de SYSCOM
      *
@@ -27,39 +21,15 @@ class SyscomController
     private $syscomRepository;
 
     /**
-     * Servicio de vistas
-     *
-     * @var ViewServiceInterface
-     */
-    private $viewService;
-
-    /**
-     * Servicio de sesión
-     *
-     * @var SessionServiceInterface
-     */
-    private $sessionService;
-
-    /**
-     * Servicio de logging
-     *
-     * @var LoggerServiceInterface
-     */
-    private $logger;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
-        // Inicializar servicios usando la fábrica
-        $this->syscomRepository = ServiceFactory::getSyscomRepository();
-        $this->viewService = ServiceFactory::getViewService();
-        $this->sessionService = ServiceFactory::getSessionService();
-        $this->logger = ServiceFactory::getLoggerService();
+        // Llamar al constructor padre para inicializar servicios comunes
+        parent::__construct();
 
-        // Verificar si el usuario está autenticado
-        $this->sessionService->requireAuthentication();
+        // Inicializar servicios específicos
+        $this->syscomRepository = ServiceFactory::getSyscomRepository();
     }
 
     /**
@@ -72,33 +42,36 @@ class SyscomController
         // Registrar intento de obtener categorías
         $this->logger->info('Intentando obtener categorías de SYSCOM');
 
-        // Obtener categorías
+        // Obtener categorías y manejar posibles errores
         $categories = $this->syscomRepository->getCategories();
 
-        // Verificar si se obtuvieron categorías
-        if ($categories === null) {
-            $this->logger->error('Error al obtener categorías de SYSCOM');
+        // Usar el método handleApiError para manejar errores y reintentos
+        $categories = $this->handleApiError(
+            $categories,
+            'Error al obtener categorías de SYSCOM',
+            function() {
+                // Callback para reintento directo con la API
+                $apiService = ServiceFactory::getSyscomApiService();
+                $directResult = $apiService->request('GET', 'categorias');
 
-            // Intentar obtener directamente desde el servicio de API para diagnóstico
-            $apiService = ServiceFactory::getSyscomApiService();
-            $directCategories = $apiService->request('GET', 'categorias');
+                // Registrar resultado del reintento
+                $this->logger->info('Intento directo de obtener categorías', [
+                    'resultado' => $directResult !== null ? 'éxito' : 'fallo'
+                ]);
 
-            $this->logger->info('Intento directo de obtener categorías', [
-                'resultado' => $directCategories !== null ? 'éxito' : 'fallo'
-            ]);
-
-            // Si el intento directo tuvo éxito, usar esos resultados
-            if ($directCategories !== null) {
-                $categories = $directCategories;
+                return $directResult;
             }
-        } else {
+        );
+
+        // Registrar éxito si tenemos datos
+        if ($categories !== null) {
             $this->logger->info('Categorías obtenidas correctamente', [
                 'cantidad' => is_array($categories) ? count($categories) : 0
             ]);
         }
 
         // Renderizar vista
-        $this->viewService->render('syscom/categories.php', [
+        $this->render('syscom/categories.php', [
             'title' => 'Categorías de Productos',
             'categories' => $categories,
             'extraCss' => ['syscom'],
@@ -138,15 +111,14 @@ class SyscomController
             'orden' => $order
         ]);
 
-        // Obtener productos de la categoría
+        // Obtener productos de la categoría y manejar posibles errores
         $products = $this->syscomRepository->getProductsByCategory($categoryId, $page, $order);
 
-        // Verificar si se obtuvieron productos
-        if ($products === null) {
-            $this->logger->error('Error al obtener productos de la categoría', [
-                'categoria_id' => $categoryId
-            ]);
-        } else {
+        // No hay un reintento directo para productos, pero podríamos implementarlo si fuera necesario
+        // Por ahora, solo registramos el error o éxito
+
+        // Registrar éxito si tenemos datos
+        if ($products !== null) {
             $this->logger->info('Productos obtenidos correctamente', [
                 'categoria_id' => $categoryId,
                 'cantidad' => isset($products['productos']) && is_array($products['productos']) ? count($products['productos']) : 0,
@@ -161,6 +133,10 @@ class SyscomController
                     'precios_keys' => isset($firstProduct['precios']) ? json_encode(array_keys($firstProduct['precios'])) : 'No hay precios'
                 ]);
             }
+        } else {
+            $this->logger->error('Error al obtener productos de la categoría', [
+                'categoria_id' => $categoryId
+            ]);
         }
 
         // Obtener información de la categoría para mostrar el nombre
@@ -177,7 +153,7 @@ class SyscomController
         }
 
         // Renderizar vista
-        $this->viewService->render('syscom/products.php', [
+        $this->render('syscom/products.php', [
             'title' => 'Productos de ' . $categoryName,
             'products' => $products,
             'categoryId' => $categoryId,
@@ -199,33 +175,36 @@ class SyscomController
         // Registrar intento de obtener tipo de cambio
         $this->logger->info('Intentando obtener tipo de cambio de SYSCOM');
 
-        // Obtener tipo de cambio
+        // Obtener tipo de cambio y manejar posibles errores
         $exchangeRate = $this->syscomRepository->getExchangeRate();
 
-        // Verificar si se obtuvo el tipo de cambio
-        if ($exchangeRate === null) {
-            $this->logger->error('Error al obtener tipo de cambio de SYSCOM');
+        // Usar el método handleApiError para manejar errores y reintentos
+        $exchangeRate = $this->handleApiError(
+            $exchangeRate,
+            'Error al obtener tipo de cambio de SYSCOM',
+            function() {
+                // Callback para reintento directo con la API
+                $apiService = ServiceFactory::getSyscomApiService();
+                $directResult = $apiService->request('GET', 'tipocambio');
 
-            // Intentar obtener directamente desde el servicio de API para diagnóstico
-            $apiService = ServiceFactory::getSyscomApiService();
-            $directExchangeRate = $apiService->request('GET', 'tipocambio');
+                // Registrar resultado del reintento
+                $this->logger->info('Intento directo de obtener tipo de cambio', [
+                    'resultado' => $directResult !== null ? 'éxito' : 'fallo'
+                ]);
 
-            $this->logger->info('Intento directo de obtener tipo de cambio', [
-                'resultado' => $directExchangeRate !== null ? 'éxito' : 'fallo'
-            ]);
-
-            // Si el intento directo tuvo éxito, usar esos resultados
-            if ($directExchangeRate !== null) {
-                $exchangeRate = $directExchangeRate;
+                return $directResult;
             }
-        } else {
+        );
+
+        // Registrar éxito si tenemos datos
+        if ($exchangeRate !== null) {
             $this->logger->info('Tipo de cambio obtenido correctamente', [
                 'datos' => json_encode($exchangeRate)
             ]);
         }
 
         // Renderizar vista
-        $this->viewService->render('syscom/exchange_rate.php', [
+        $this->render('syscom/exchange_rate.php', [
             'title' => 'Tipo de Cambio',
             'exchangeRate' => $exchangeRate,
             'extraCss' => ['syscom'],

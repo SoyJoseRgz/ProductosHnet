@@ -1,9 +1,9 @@
 <?php
 /**
  * Vista de error genérica
- * 
+ *
  * Esta vista muestra un mensaje de error genérico
- * 
+ *
  * @package app\Views\errors
  */
 
@@ -12,7 +12,19 @@
 ?>
 
 <div class="error-container">
-    <h2><?= htmlspecialchars($statusCode) ?> - <?= htmlspecialchars($title) ?></h2>
-    <p><?= htmlspecialchars($message) ?></p>
-    <a href="<?= APP_URL ?>" class="btn">Volver al inicio</a>
+    <?php
+    // Usar el componente de encabezado de página
+    $viewService->includeComponent('page_header', [
+        'title' => htmlspecialchars($statusCode) . ' - ' . htmlspecialchars($title)
+    ]);
+    ?>
+
+    <div class="error-message">
+        <p><?= htmlspecialchars($message) ?></p>
+    </div>
+
+    <?php
+    // Usar el componente de acciones de error
+    $viewService->includeComponent('error_actions');
+    ?>
 </div>

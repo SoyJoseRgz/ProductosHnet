@@ -12,7 +12,19 @@
 ?>
 
 <div class="error-container">
-    <h2>404 - Página no encontrada</h2>
-    <p>Lo sentimos, la página que estás buscando no existe.</p>
-    <a href="<?= APP_URL ?>" class="btn">Volver al inicio</a>
+    <?php
+    // Usar el componente de encabezado de página
+    $viewService->includeComponent('page_header', [
+        'title' => '404 - Página no encontrada'
+    ]);
+    ?>
+
+    <div class="error-message">
+        <p>Lo sentimos, la página que estás buscando no existe.</p>
+    </div>
+
+    <?php
+    // Usar el componente de acciones de error
+    $viewService->includeComponent('error_actions');
+    ?>
 </div>

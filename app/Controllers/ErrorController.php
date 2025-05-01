@@ -8,38 +8,24 @@
  */
 namespace app\Controllers;
 
-use app\Interfaces\ViewServiceInterface;
-use app\Interfaces\LoggerServiceInterface;
-use app\Services\ServiceFactory;
-use app\Traits\ErrorHandlerTrait;
 use app\Utils\Redirector;
 
-class ErrorController
+class ErrorController extends BaseController
 {
-    use ErrorHandlerTrait;
-
     /**
-     * Servicio de vistas
+     * Indica si se requiere autenticación para este controlador
      *
-     * @var ViewServiceInterface
+     * @var bool
      */
-    private $viewService;
-
-    /**
-     * Servicio de logging
-     *
-     * @var LoggerServiceInterface
-     */
-    private $logger;
+    protected $requiresAuth = false;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        // Inicializar los servicios usando la fábrica
-        $this->viewService = ServiceFactory::getViewService();
-        $this->logger = ServiceFactory::getLoggerService();
+        // Llamar al constructor padre para inicializar servicios comunes
+        parent::__construct();
     }
 
     /**
@@ -61,7 +47,7 @@ class ErrorController
         ];
 
         // Renderizar la vista de error 404
-        $this->viewService->render('errors/404.php', $viewData);
+        $this->render('errors/404.php', $viewData);
     }
 
     /**
@@ -89,7 +75,7 @@ class ErrorController
 
         // Renderizar la vista de error genérica si existe
         if (file_exists(BASE_PATH . '/app/Views/errors/generic.php')) {
-            $this->viewService->render('errors/generic.php', $viewData);
+            $this->render('errors/generic.php', $viewData);
         } else {
             // Si no existe, mostrar un mensaje simple
             echo "<h1>" . htmlspecialchars($title) . "</h1>";

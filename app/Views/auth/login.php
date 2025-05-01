@@ -14,11 +14,11 @@
         <p class="login-subtitle">Accede a tu cuenta</p>
     </div>
 
-    <?php if (!empty($error)): ?>
-    <div class="error-message">
-        <?= htmlspecialchars($error) ?>
-    </div>
-    <?php endif; ?>
+    <?php
+    if (!empty($error)) {
+        $viewService->includeComponent('error_message', ['message' => $error]);
+    }
+    ?>
 
     <form method="POST" action="<?= APP_URL ?>/login" class="login-form">
         <div class="form-group">

@@ -1,11 +1,12 @@
 <div class="syscom-container">
-    <h1 class="page-title">Productos de <?= htmlspecialchars($categoryName) ?></h1>
-
-    <div class="navigation-links">
-        <a href="<?= APP_URL ?>/syscom/categories" class="btn btn-secondary btn-sm">
-            <i class="back-icon"></i> Volver a Categorías
-        </a>
-    </div>
+    <?php
+    // Usar el componente de encabezado de página
+    $viewService->includeComponent('page_header', [
+        'title' => 'Productos de ' . htmlspecialchars($categoryName),
+        'backUrl' => APP_URL . '/syscom/categories',
+        'backText' => 'Volver a Categorías'
+    ]);
+    ?>
 
     <?php if (isset($products) && $products !== null): ?>
         <div class="products-container">
@@ -156,17 +157,13 @@
             <?php endif; ?>
         </div>
     <?php else: ?>
-        <div class="error-container">
-            <p>Error al cargar los productos. Por favor, intente nuevamente más tarde.</p>
-
-            <?php if (defined('ENVIRONMENT') && ENVIRONMENT === 'development'): ?>
-                <div class="debug-info">
-                    <h3>Información de depuración</h3>
-                    <p>Verifique las credenciales de la API en el archivo config/config.php</p>
-                    <p>Asegúrese de que las constantes SYSCOM_CLIENT_ID y SYSCOM_CLIENT_SECRET estén configuradas correctamente.</p>
-                </div>
-            <?php endif; ?>
-        </div>
+        <?php
+        // Usar el componente de error de API
+        $viewService->includeComponent('api_error', [
+            'message' => 'Error al cargar los productos. Por favor, intente nuevamente más tarde.',
+            'apiName' => 'SYSCOM'
+        ]);
+        ?>
     <?php endif; ?>
 </div>
 

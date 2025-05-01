@@ -1,0 +1,27 @@
+# Archivos de logs
+/logs/*.log
+
+# Archivos temporales
+/temp/
+/tmp/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de dependencias
+/vendor/
+/node_modules/
+
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Archivos de IDE y editores
+/.idea/
+/.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo

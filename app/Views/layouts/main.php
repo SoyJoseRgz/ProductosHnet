@@ -23,6 +23,9 @@
     <!-- Estilos de layout -->
     <link rel="stylesheet" href="<?= APP_URL ?>/public/css/layout.css">
 
+    <!-- Estilos de mensajes -->
+    <link rel="stylesheet" href="<?= APP_URL ?>/public/css/messages.css">
+
     <!-- Estilos adicionales -->
     <?php if (isset($extraCss)): ?>
         <?php foreach ($extraCss as $css): ?>
@@ -78,6 +81,21 @@
                                 <a href="<?= APP_URL ?>/syscom/exchange-rate" class="submenu-link">
                                     <i class="sidebar-icon exchange-icon"></i>
                                     <span>Tipo de Cambio</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item <?= strpos($_SERVER['REQUEST_URI'], '/woocommerce') !== false ? 'active' : '' ?>">
+                        <a href="#" class="sidebar-link has-submenu">
+                            <i class="sidebar-icon woocommerce-icon"></i>
+                            <span>WooCommerce</span>
+                            <i class="submenu-arrow"></i>
+                        </a>
+                        <ul class="submenu <?= strpos($_SERVER['REQUEST_URI'], '/woocommerce') !== false ? 'open' : '' ?>">
+                            <li class="submenu-item active">
+                                <a href="<?= APP_URL ?>/woocommerce" class="submenu-link">
+                                    <i class="sidebar-icon home-icon"></i>
+                                    <span>Inicio</span>
                                 </a>
                             </li>
                         </ul>

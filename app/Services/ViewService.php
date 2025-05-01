@@ -21,6 +21,9 @@ class ViewService implements ViewServiceInterface
      */
     public function render(string $viewPath, array $data = []): void
     {
+        // Agregar el servicio de vistas a los datos para poder usar componentes
+        $data['viewService'] = $this;
+
         // Extraer variables para la vista
         extract($data);
 
@@ -35,6 +38,30 @@ class ViewService implements ViewServiceInterface
         // Cargar el layout principal con el contenido
         $layout = BASE_PATH . '/app/Views/layouts/main.php';
         require_once $layout;
+    }
+
+    /**
+     * Incluye un componente en la vista
+     *
+     * @param string $componentName Nombre del componente
+     * @param array $data Datos para pasar al componente
+     * @return void
+     */
+    public function includeComponent(string $componentName, array $data = []): void
+    {
+        // Extraer variables para el componente
+        extract($data);
+
+        // Definir la ruta del componente
+        $componentPath = BASE_PATH . '/app/Views/components/' . $componentName . '.php';
+
+        // Verificar que el archivo del componente existe
+        if (!file_exists($componentPath)) {
+            $this->handleError("El archivo de componente no existe: " . $componentPath);
+        }
+
+        // Incluir el componente
+        require $componentPath;
     }
 
     /**

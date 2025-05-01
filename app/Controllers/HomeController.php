@@ -8,40 +8,15 @@
  */
 namespace app\Controllers;
 
-use app\Interfaces\SessionServiceInterface;
-use app\Interfaces\ViewServiceInterface;
-use app\Services\ServiceFactory;
-use app\Traits\ErrorHandlerTrait;
-
-class HomeController
+class HomeController extends BaseController
 {
-    use ErrorHandlerTrait;
-
-    /**
-     * Servicio de sesión
-     *
-     * @var SessionServiceInterface
-     */
-    private $sessionService;
-
-    /**
-     * Servicio de vistas
-     *
-     * @var ViewServiceInterface
-     */
-    private $viewService;
-
     /**
      * Constructor
      */
     public function __construct()
     {
-        // Inicializar servicios usando la fábrica
-        $this->sessionService = ServiceFactory::getSessionService();
-        $this->viewService = ServiceFactory::getViewService();
-
-        // Verificar si el usuario está autenticado
-        $this->sessionService->requireAuthentication();
+        // Llamar al constructor padre para inicializar servicios comunes
+        parent::__construct();
     }
 
     /**
@@ -67,6 +42,6 @@ class HomeController
         ];
 
         // Renderizar la vista principal
-        $this->viewService->render('home/index.php', $viewData);
+        $this->render('home/index.php', $viewData);
     }
 }

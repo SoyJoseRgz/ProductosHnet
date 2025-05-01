@@ -96,6 +96,10 @@ if (empty($uri) || $uri === 'index.php') {
     // Tipo de cambio de SYSCOM
     $controller = new app\Controllers\SyscomController();
     $controller->exchangeRate();
+} elseif ($uri === 'woocommerce' || $uri === 'woocommerce/') {
+    // Página principal de WooCommerce
+    $controller = new app\Controllers\WooCommerceController();
+    $controller->index();
 } else {
     // Registrar información sobre la ruta no encontrada
     $logger->warning("Ruta no encontrada: $uri");

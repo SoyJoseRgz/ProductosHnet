@@ -179,6 +179,18 @@ header h1 {
     content: "💱";
 }
 
+.woocommerce-icon::before {
+    content: "🛒";
+}
+
+.products-icon::before {
+    content: "📦";
+}
+
+.upload-icon::before {
+    content: "⬆️";
+}
+
 .sidebar-item.active > .sidebar-link {
     background-color: #e9ecef;
     font-weight: bold;

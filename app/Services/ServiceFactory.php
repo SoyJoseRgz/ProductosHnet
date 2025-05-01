@@ -15,7 +15,10 @@ use app\Interfaces\ValidatorServiceInterface;
 use app\Interfaces\SyscomApiServiceInterface;
 use app\Interfaces\SyscomRepositoryInterface;
 use app\Interfaces\LoggerServiceInterface;
+use app\Interfaces\WooCommerceApiServiceInterface;
+use app\Interfaces\WooCommerceRepositoryInterface;
 use app\Repositories\SyscomRepository;
+use app\Repositories\WooCommerceRepository;
 
 class ServiceFactory
 {
@@ -124,5 +127,33 @@ class ServiceFactory
         }
 
         return self::$instances[LoggerServiceInterface::class];
+    }
+
+    /**
+     * Obtiene una instancia del servicio de API de WooCommerce
+     *
+     * @return WooCommerceApiServiceInterface Instancia del servicio
+     */
+    public static function getWooCommerceApiService(): WooCommerceApiServiceInterface
+    {
+        if (!isset(self::$instances[WooCommerceApiServiceInterface::class])) {
+            self::$instances[WooCommerceApiServiceInterface::class] = new WooCommerceApiService();
+        }
+
+        return self::$instances[WooCommerceApiServiceInterface::class];
+    }
+
+    /**
+     * Obtiene una instancia del repositorio de WooCommerce
+     *
+     * @return WooCommerceRepositoryInterface Instancia del repositorio
+     */
+    public static function getWooCommerceRepository(): WooCommerceRepositoryInterface
+    {
+        if (!isset(self::$instances[WooCommerceRepositoryInterface::class])) {
+            self::$instances[WooCommerceRepositoryInterface::class] = new WooCommerceRepository();
+        }
+
+        return self::$instances[WooCommerceRepositoryInterface::class];
     }
 }

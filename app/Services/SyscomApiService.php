@@ -9,9 +9,8 @@
 namespace app\Services;
 
 use app\Interfaces\SyscomApiServiceInterface;
-use app\Interfaces\LoggerServiceInterface;
 
-class SyscomApiService implements SyscomApiServiceInterface
+class SyscomApiService extends BaseApiService implements SyscomApiServiceInterface
 {
     /**
      * URL base de la API de SYSCOM
@@ -52,20 +51,14 @@ class SyscomApiService implements SyscomApiServiceInterface
     private $clientSecret;
 
     /**
-     * Servicio de logging
-     *
-     * @var LoggerServiceInterface
-     */
-    private $logger;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
+        parent::__construct();
+        $this->apiBaseUrl = self::API_BASE_URL;
         $this->clientId = SYSCOM_CLIENT_ID;
         $this->clientSecret = SYSCOM_CLIENT_SECRET;
-        $this->logger = ServiceFactory::getLoggerService();
     }
 
     /**
@@ -154,14 +147,6 @@ class SyscomApiService implements SyscomApiServiceInterface
      */
     public function request(string $method, string $endpoint, array $params = [], array $headers = []): ?array
     {
-        $startTime = microtime(true);
-
-        $this->logger->debug('Iniciando petición a SYSCOM API', [
-            'method' => $method,
-            'endpoint' => $endpoint,
-            'params' => $params
-        ]);
-
         // Asegurar que tenemos un token válido
         $token = $this->getAccessToken();
         if (empty($token)) {
@@ -170,7 +155,7 @@ class SyscomApiService implements SyscomApiServiceInterface
         }
 
         // Preparar la URL
-        $url = self::API_BASE_URL . '/' . ltrim($endpoint, '/');
+        $url = $this->apiBaseUrl . '/' . ltrim($endpoint, '/');
 
         // Preparar los headers
         $defaultHeaders = [
@@ -181,104 +166,7 @@ class SyscomApiService implements SyscomApiServiceInterface
 
         $requestHeaders = array_merge($defaultHeaders, $headers);
 
-        // Inicializar cURL
-        $ch = curl_init();
-
-        // Configurar la petición según el método
-        switch (strtoupper($method)) {
-            case 'GET':
-                if (!empty($params)) {
-                    $url .= '?' . http_build_query($params);
-                }
-                break;
-
-            case 'POST':
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-                break;
-
-            case 'PUT':
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-                break;
-
-            case 'DELETE':
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
-                if (!empty($params)) {
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-                }
-                break;
-
-            default:
-                $this->logger->error('Método HTTP no soportado', ['method' => $method]);
-                return null;
-        }
-
-        // Configurar opciones comunes
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $requestHeaders);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-        // Ejecutar la petición
-        $response = curl_exec($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $curlError = curl_error($ch);
-        curl_close($ch);
-
-        $endTime = microtime(true);
-        $duration = round(($endTime - $startTime) * 1000, 2); // en milisegundos
-
-        // Si hay un error en la petición
-        if ($httpCode < 200 || $httpCode >= 300 || $response === false) {
-            $errorData = [
-                'method' => $method,
-                'endpoint' => $endpoint,
-                'http_code' => $httpCode,
-                'curl_error' => $curlError,
-                'duration_ms' => $duration
-            ];
-
-            // Para errores 422 (Unprocessable Entity), intentar decodificar la respuesta para obtener más detalles
-            if ($httpCode === 422 && !empty($response)) {
-                $errorResponse = json_decode($response, true);
-                if ($errorResponse !== null) {
-                    $errorData['error_details'] = $errorResponse;
-                } else {
-                    $errorData['error_response'] = $response;
-                }
-
-                // Registrar información adicional para depuración
-                $errorData['url'] = $url;
-                $errorData['params'] = $params;
-            }
-
-            $this->logger->error('Error en petición a SYSCOM API', $errorData);
-            return null;
-        }
-
-        // Decodificar la respuesta
-        $data = json_decode($response, true);
-
-        // Verificar si la respuesta es válida
-        if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
-            $this->logger->error('Error al decodificar respuesta JSON', [
-                'method' => $method,
-                'endpoint' => $endpoint,
-                'json_error' => json_last_error_msg(),
-                'response_preview' => substr($response, 0, 255)
-            ]);
-            return null;
-        }
-
-        $this->logger->info('Petición a SYSCOM API completada', [
-            'method' => $method,
-            'endpoint' => $endpoint,
-            'http_code' => $httpCode,
-            'duration_ms' => $duration,
-            'response_size' => strlen($response)
-        ]);
-
-        return $data;
+        // Usar el método de la clase base para hacer la petición HTTP
+        return $this->makeHttpRequest($method, $url, $params, $requestHeaders);
     }
 }
