@@ -19,6 +19,13 @@
                     </p>
                 </div>
 
+                <!-- Control de porcentaje de ganancia -->
+                <div class="profit-control">
+                    <label for="profit-percentage">Porcentaje de ganancia:</label>
+                    <input type="number" id="profit-percentage" min="1" max="100" value="20" class="profit-input">
+                    <button id="apply-profit" class="btn btn-primary btn-sm">Aplicar</button>
+                </div>
+
                 <!-- Opciones de ordenamiento -->
                 <div class="order-options">
                     <label for="order-select">Ordenar por:</label>
@@ -69,11 +76,40 @@
 
                                         if ($precioBase !== null) {
                                             $precioConDescuento = $precioBase * 0.96; // 4% de descuento
+
+                                            // Obtener el tipo de cambio (valor de "un_mes")
+                                            $tipoCambio = 0;
+                                            $exchangeRateData = app\Services\ServiceFactory::getSyscomRepository()->getExchangeRate();
+                                            if ($exchangeRateData && isset($exchangeRateData['un_mes'])) {
+                                                $tipoCambio = (float)$exchangeRateData['un_mes'];
+                                            } else {
+                                                $tipoCambio = 17.5; // Valor predeterminado
+                                            }
+
+                                            // Calcular el precio en pesos mexicanos
+                                            $precioMXN = $precioConDescuento * $tipoCambio;
                                         ?>
                                             <div class="product-price price-syscom">
                                                 <span class="price-label">SYSCOM:</span>
                                                 <span class="price-value">$<?= number_format($precioConDescuento, 2) ?></span>
                                                 <span class="price-currency">USD + IVA</span>
+                                            </div>
+                                            <div class="product-price price-syscom-mxn">
+                                                <span class="price-label">SYSCOM:</span>
+                                                <span class="price-value">$<?= number_format($precioMXN, 2) ?></span>
+                                                <span class="price-currency">MXN + IVA</span>
+                                            </div>
+
+                                            <!-- Precios HNET con ganancia -->
+                                            <div class="product-price price-hnet">
+                                                <span class="price-label">HNET:</span>
+                                                <span class="price-value price-hnet-usd">$<?= number_format($precioConDescuento * 1.2, 2) ?></span>
+                                                <span class="price-currency">USD + IVA</span>
+                                            </div>
+                                            <div class="product-price price-hnet-mxn">
+                                                <span class="price-label">HNET:</span>
+                                                <span class="price-value price-hnet-mxn-value">$<?= number_format($precioMXN * 1.2, 2) ?></span>
+                                                <span class="price-currency">MXN + IVA</span>
                                             </div>
                                         <?php } else { ?>
                                             <div class="product-price">
@@ -91,11 +127,6 @@
                                 <div class="product-model">Modelo: <?= htmlspecialchars($product['modelo']) ?></div>
                                 <div class="product-stock">Stock: <?= $product['total_existencia'] ?? 0 ?></div>
                             </div>
-                            <?php if (!empty($product['link'])): ?>
-                                <div class="product-footer">
-                                    <a href="<?= htmlspecialchars($product['link']) ?>" target="_blank" class="btn btn-primary btn-sm">Ver producto</a>
-                                </div>
-                            <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -171,4 +202,51 @@
     function changeOrder(order) {
         window.location.href = '<?= APP_URL ?>/syscom/productos/<?= $categoryId ?>?page=<?= $currentPage ?>&order=' + encodeURIComponent(order);
     }
+
+    // Funcionalidad para el porcentaje de ganancia
+    document.addEventListener('DOMContentLoaded', function() {
+        const profitInput = document.getElementById('profit-percentage');
+        const applyButton = document.getElementById('apply-profit');
+
+        applyButton.addEventListener('click', function() {
+            const profitPercentage = parseFloat(profitInput.value) / 100;
+            if (isNaN(profitPercentage) || profitPercentage <= 0) {
+                alert('Por favor, ingrese un porcentaje válido mayor a 0');
+                return;
+            }
+
+            // Recorrer todas las tarjetas de productos
+            const productCards = document.querySelectorAll('.product-card');
+            
+            productCards.forEach(card => {
+                // Obtener los precios base en USD y MXN
+                const syscomUsdElement = card.querySelector('.price-syscom .price-value');
+                const syscomMxnElement = card.querySelector('.price-syscom-mxn .price-value');
+                
+                if (syscomUsdElement && syscomMxnElement) {
+                    // Obtener valores numéricos
+                    const usdPrice = parseFloat(syscomUsdElement.textContent.replace('$', '').replace(',', ''));
+                    const mxnPrice = parseFloat(syscomMxnElement.textContent.replace('$', '').replace(',', ''));
+                    
+                    if (!isNaN(usdPrice) && !isNaN(mxnPrice)) {
+                        // Calcular nuevos precios con ganancia
+                        const hnetUsdPrice = usdPrice * (1 + profitPercentage);
+                        const hnetMxnPrice = mxnPrice * (1 + profitPercentage);
+                        
+                        // Actualizar los elementos en la interfaz
+                        const hnetUsdElement = card.querySelector('.price-hnet-usd');
+                        const hnetMxnElement = card.querySelector('.price-hnet-mxn-value');
+                        
+                        if (hnetUsdElement) {
+                            hnetUsdElement.textContent = '$' + hnetUsdPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        }
+                        
+                        if (hnetMxnElement) {
+                            hnetMxnElement.textContent = '$' + hnetMxnPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                        }
+                    }
+                }
+            });
+        });
+    });
 </script>
